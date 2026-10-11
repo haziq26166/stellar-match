@@ -1,0 +1,235 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Stellar Match</title>
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+<div id="game">
+  <div class="end-flash" id="end-flash"></div>
+
+  <div class="top-bar">
+    <div class="top-bar-title">🚀 Stellar Match</div>
+    <div class="top-bar-actions">
+      <button class="nav-btn" id="nav-play-btn" type="button">🎯 Play</button>
+      <button class="nav-btn" id="nav-orbs-btn" type="button">🪐 Orbs</button>
+      <button class="music-toggle" id="music-btn" type="button">🎵</button>
+    </div>
+  </div>
+
+  <div class="screen-wrap">
+
+    <!-- START SCREEN -->
+    <div id="start-screen" class="screen">
+      <div class="hero-crest">🚀</div>
+      <h1>STELLAR MATCH</h1>
+      <div class="start-tagline">
+        Match cosmic orbs — every 2 swaps,<br>
+        <em>a cosmic question appears.</em>
+      </div>
+      <div class="start-features">
+        <span>⭐ Match 3</span>
+        <span>🧠 Every 2 Swaps</span>
+        <span>🌌 5 Sectors</span>
+      </div>
+      <div class="screen-actions">
+        <button class="btn" id="start-btn" type="button">LAUNCH MISSION →</button>
+      </div>
+    </div>
+
+    <!-- INTRO / RULES MODAL -->
+    <div id="intro-modal" class="modal hidden">
+      <div class="modal-content intro-modal-content">
+        <div class="intro-banner">🛰️</div>
+        <h2>Mission Briefing</h2>
+        <div class="intro-rules">
+          <div class="intro-rule">
+            <span class="intro-rule-icon">🔁</span>
+            <div class="intro-rule-text">
+              <strong>Cosmic scan every 2 swaps</strong>
+              <span>Each valid swap you make counts toward the next question. Watch the <em>Next Q</em> counter.</span>
+            </div>
+          </div>
+          <div class="intro-rule">
+            <span class="intro-rule-icon">✅</span>
+            <div class="intro-rule-text">
+              <strong>Correct answer</strong>
+              <span>The counter resets — your next question comes after 2 swaps again.</span>
+            </div>
+          </div>
+          <div class="intro-rule">
+            <span class="intro-rule-icon">❌</span>
+            <div class="intro-rule-text">
+              <strong>Wrong answer</strong>
+              <span>Questions come <em>more often</em> — the counter drops by 1 swap each time you miss.</span>
+            </div>
+          </div>
+        </div>
+        <button class="btn" id="intro-begin-btn" type="button">ENGAGE — LET'S GO →</button>
+      </div>
+    </div>
+
+      <!-- PLAY SCREEN -->
+    <div id="play-screen" class="screen hidden">
+      <!-- Level bar -->
+      <div class="level-bar">
+        <div class="level-info">
+          <div class="level-tag" id="level-tag">Sector 1</div>
+          <div class="level-name" id="level-name">Orbital Station</div>
+        </div>
+        <div class="level-stats">
+          <div class="stat-mini">
+            <span class="stat-mini-label">Score</span>
+            <span class="stat-mini-value" id="score-display">0 / 250</span>
+          </div>
+          <div class="stat-mini">
+            <span class="stat-mini-label">Moves Left</span>
+            <span class="stat-mini-value" id="total-moves-display">12</span>
+          </div>
+          <div class="stat-mini">
+            <span class="stat-mini-label">Next Q</span>
+            <span class="stat-mini-value" id="moves-display">2</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Progress bar -->
+      <div class="progress-row">
+        <div class="progress-bar-block">
+          <div class="progress-bar-fill score-fill" id="score-fill"></div>
+        </div>
+      </div>
+
+      <!-- The grid (flexes to fill available space) -->
+      <div id="grid-wrap">
+        <div id="grid"></div>
+        <div id="float-layer"></div>
+        <div id="combo-tag" class="combo-tag hidden">Combo!</div>
+      </div>
+
+      <!-- Action bar -->
+      <div class="action-bar">
+        <button class="action-btn shuffle-btn" id="action-shuffle" type="button">
+          <span class="action-icon">🌀</span>
+          <span class="action-label">Warp</span>
+          <span class="action-hint" id="shuffle-count">1 left</span>
+        </button>
+        <button class="action-btn" id="action-restart" type="button">
+          <span class="action-icon">🔄</span>
+          <span class="action-label">Restart</span>
+          <span class="action-hint">Sector</span>
+        </button>
+      </div>
+
+      <!-- Status message -->
+      <div class="status-msg" id="status-msg">Swap adjacent orbs to match 3 or more!</div>
+    </div>
+
+    <!-- QUESTION MODAL -->
+    <div id="question-modal" class="modal hidden">
+      <div class="modal-content">
+        <div class="modal-header">
+          <div class="modal-tag" id="question-tag">🛰️ Cosmic Scan — Answer correctly to keep playing</div>
+          <div class="modal-timer-bar"><div class="modal-timer-fill" id="modal-timer-fill"></div></div>
+        </div>
+        <div id="question-text"></div>
+        <div id="answers"></div>
+      </div>
+    </div>
+
+    <!-- RESULT MODAL -->
+    <div id="result-modal" class="modal hidden">
+      <div class="modal-content result-modal-content">
+        <div class="result-banner" id="result-emoji">✨</div>
+        <h2 id="result-title">Correct!</h2>
+        <div class="result-info" id="result-info"></div>
+        <button class="btn" id="result-continue-btn" type="button">CONTINUE</button>
+      </div>
+    </div>
+
+    <!-- LEVEL COMPLETE MODAL -->
+    <div id="level-win-modal" class="modal hidden">
+      <div class="modal-content capture-modal-content">
+        <div class="capture-banner" id="level-win-emoji">🛸</div>
+        <h2 id="level-win-title">Sector Cleared!</h2>
+        <div class="capture-info" id="level-win-info"></div>
+        <button class="btn" id="level-win-continue-btn" type="button">NEXT SECTOR →</button>
+      </div>
+    </div>
+
+    <!-- LEVEL FAIL MODAL -->
+    <div id="level-lose-modal" class="modal hidden">
+      <div class="modal-content capture-modal-content">
+        <div class="capture-banner" id="level-lose-emoji">💥</div>
+        <h2 id="level-lose-title" style="color:#ff7b9c;">Signal Lost</h2>
+        <div class="capture-info" id="level-lose-info"></div>
+        <button class="btn" id="level-lose-continue-btn" type="button">RETRY SECTOR</button>
+      </div>
+    </div>
+
+    <!-- ORB CODEX SCREEN -->
+    <div id="orbs-screen" class="screen hidden">
+      <div class="orbs-header">
+        <h1>🪐 Orb Codex</h1>
+        <div class="orbs-sub">The five cosmic orbs</div>
+      </div>
+
+      <div class="orbs-grid" id="orbs-grid"></div>
+
+      <div class="orbs-details">
+        <h3>How to Play</h3>
+        <ul>
+          <li>Swap <strong>adjacent orbs</strong> to match 3 or more.</li>
+          <li>Every <strong>2 valid swaps</strong>, a cosmic question appears.</li>
+          <li><strong>Correct answer</strong> → the counter resets to 2 swaps.</li>
+          <li><strong>Wrong answer</strong> → the counter drops by 1, so the next question comes sooner.</li>
+          <li>Hit the <strong>target score</strong> to unlock the next sector.</li>
+          <li>If you run out of moves before the target, the mission ends.</li>
+        </ul>
+
+        <h3>Scoring</h3>
+        <ul>
+          <li>Match-3 = <strong>30 points</strong></li>
+          <li>Match-4 = <strong>60 points</strong></li>
+          <li>Match-5+ = <strong>100 points</strong></li>
+          <li>Cascades = <strong>+50% per chain level</strong></li>
+        </ul>
+
+        <h3>Warp</h3>
+        <ul>
+          <li>Each sector gives you <strong>1 warp</strong>.</li>
+          <li>Use it if the board gets stuck with no valid moves.</li>
+        </ul>
+      </div>
+
+      <div class="screen-actions">
+        <button class="btn secondary" id="reset-btn" type="button">Reset Progress</button>
+        <button class="btn" id="back-from-orbs-btn" type="button">← Back to Play</button>
+      </div>
+    </div>
+
+    <!-- VICTORY SCREEN -->
+    <div id="victory-screen" class="screen hidden">
+      <div class="victory-banner">🏆</div>
+      <h1>GALACTIC LEGEND</h1>
+      <p class="victory-text">
+        You have matched every orb and charted every sector.<br>
+        The galaxy is yours to command.<br>
+        <em>The stars will remember your name.</em>
+      </p>
+      <div class="screen-actions">
+        <button class="btn" id="play-again-btn" type="button">PLAY AGAIN</button>
+        <button class="btn secondary" id="reset-from-victory-btn" type="button">Reset Progress</button>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<script src="questions.js"></script>
+<script src="sounds.js"></script>
+<script src="game.js"></script>
+</body>
+</html>
