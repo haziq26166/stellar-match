@@ -71,11 +71,11 @@ const ORBS = [
      bonusSwaps  — extra swaps earned per correct answer (default 1)
 */
 const LEVELS = [
-{ name: "Orbital Station",  targetScore: 250,  moves: 16, bonusSwaps: 1 },
-{ name: "Asteroid Belt",    targetScore: 400,  moves: 16, bonusSwaps: 1 },
-{ name: "Nebula Drift",     targetScore: 600,  moves: 18, bonusSwaps: 1 },
-{ name: "Event Horizon",    targetScore: 800,  moves: 18, bonusSwaps: 1 },
-{ name: "Galactic Core",    targetScore: 1100, moves: 20, bonusSwaps: 1 }
+  { name: "Orbital Station",  targetScore: 350,  moves: 18, bonusSwaps: 1 },
+  { name: "Asteroid Belt",    targetScore: 550,  moves: 18, bonusSwaps: 1 },
+  { name: "Nebula Drift",     targetScore: 800,  moves: 20, bonusSwaps: 1 },
+  { name: "Event Horizon",    targetScore: 1050, moves: 20, bonusSwaps: 1 },
+  { name: "Galactic Core",    targetScore: 1400, moves: 22, bonusSwaps: 1 }
 ];
 
 /* ---------- SCORING ----------
@@ -120,5 +120,13 @@ const QUESTIONS = [
   { 
     q: "One of the core objectives of SLM is to make sure that the agreed level of IT service provision is actually attained.",
     a: ["True", "False"]
+  },
+  { 
+    q: "What is the main purpose of Service Level Management (SLM)?",
+    a: ["To ensure IT services are delivered according to agreed and achievable targets", "To develop new computer hardware", "To reduce the number of IT service providers", "To manage employee salaries"]
+  },
+  { 
+    q: "What is a Service Level Agreement (SLA)?",
+    a: ["A  written agreement between an IT service provider and a customer", "An agreement between IT employees only", "A document used to record customer complaints only", "A plan for purchasing IT equipment"]
   }
 ];
