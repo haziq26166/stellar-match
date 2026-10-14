@@ -98,7 +98,7 @@ const QUESTIONS = [
     a: ["To ensure IT services meet business goals.", "To design new IT services for the company.", "To manage the financial budget of IT projects.", " To hire new IT support staff."]
   },
   { 
-    q: " Step 2 of the SLM process is called 'SLA Documentation.'",
+    q: "Step 2 of the SLM process is called 'SLA Documentation.'",
     a: ["False", "True"]
   },
   { 
@@ -128,5 +128,13 @@ const QUESTIONS = [
   { 
     q: "What is a Service Level Agreement (SLA)?",
     a: ["A  written agreement between an IT service provider and a customer", "An agreement between IT employees only", "A document used to record customer complaints only", "A plan for purchasing IT equipment"]
+  },
+  { 
+    q: "Business Impact Analysis (BIA) serves as an input for Service Level Management, but it is not used as an input for Service Catalogue Management.",
+    a: ["False", "True"]
+  },
+  { 
+    q: "While the Capacity Management process produces the Capacity Management Information System (CMIS) as an output, the Availability Management process generates the Availability Management Information System (AMIS) as one of its primary outputs.",
+    a: ["True", "False"]
   }
 ];
